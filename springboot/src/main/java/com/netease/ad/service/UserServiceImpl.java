@@ -61,6 +61,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
+        User u = userRepository.findOne(id);
+        Assert.notNull(u, "用户不存在");
         userRepository.delete(id);
+    }
+
+    public Long userCount() {
+        return userRepository.findCount();
     }
 }

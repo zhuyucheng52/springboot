@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by bjzhuyucheng on 2017/4/20.
@@ -30,9 +28,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    static Map<Long, User> userMap = new ConcurrentHashMap<Long, User>();
-
-    @ApiOperation(value = "获取用户列表", notes = "test")
+    @ApiOperation(value = "获取用户列表", notes = "获取用户列表")
     @GetMapping(value = "/list")
     public List<User> getUserList() {
         log.debug("query user list");
@@ -75,5 +71,12 @@ public class UserController {
         log.info("delete user id={}", id);
         userService.delete(id);
         return "success";
+    }
+
+    @ApiOperation(value = "用户总数", notes = "获取用户总数")
+    @GetMapping(value = "/count")
+    public Long userCount() {
+        log.debug("user count");
+        return userService.userCount();
     }
 }
