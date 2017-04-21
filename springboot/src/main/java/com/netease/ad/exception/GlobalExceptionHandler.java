@@ -1,6 +1,6 @@
-package com.netease.ad;
+package com.netease.ad.exception;
 
-import com.netease.ad.error.ErrorInfo;
+import com.netease.ad.exception.ErrorInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,4 +1,4 @@
-package com.netease.ad.error;
+package com.netease.ad.exception;
 
 /**
  * Created by bjzhuyucheng on 2017/4/21.

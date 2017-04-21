@@ -1,4 +1,4 @@
-package com.netease.ad.error;
+package com.netease.ad.exception;
 
 import lombok.Data;
 

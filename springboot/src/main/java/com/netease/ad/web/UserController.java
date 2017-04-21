@@ -1,7 +1,8 @@
 package com.netease.ad.web;
 
 import com.netease.ad.domain.User;
-import com.netease.ad.error.MyException;
+import com.netease.ad.exception.MyException;
+import com.netease.ad.properties.UserInfo;
 import com.netease.ad.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -25,6 +26,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserInfo userInfo;
 
     @ApiOperation(value = "获取用户列表", notes = "获取用户列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -81,6 +85,13 @@ public class UserController {
     @ApiOperation(value = "触发异常", notes = "触发异常")
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String error() {
+        log.error("an exception happening");
         throw new MyException("throws exception on purpose");
+    }
+
+    @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
+    @RequestMapping(value = "/userinfo", method = RequestMethod.GET)
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 }
