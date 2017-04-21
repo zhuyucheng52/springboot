@@ -39,7 +39,7 @@ public class UserController {
     @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
     @PostMapping(value = "/add")
     public String postUser(@ModelAttribute User user) {
-        log.info("add user id={}, name={}, age={}", user.getId(), user.getName(), user.getAge());
+        log.info("add user={}", user);
         userService.create(user);
         return "success";
     }
