@@ -4,6 +4,7 @@ import com.netease.ad.domain.User;
 import com.netease.ad.exception.MyException;
 import com.netease.ad.properties.UserInfo;
 import com.netease.ad.service.UserService;
+import com.netease.ad.task.Task;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -24,11 +25,15 @@ import java.util.List;
 @RequestMapping(value = "/users")
 @Slf4j
 public class UserController {
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private UserInfo userInfo;
+
+    @Autowired
+    private Task task;
 
     @ApiOperation(value = "获取用户列表", notes = "获取用户列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -93,5 +98,18 @@ public class UserController {
     @RequestMapping(value = "/userinfo", method = RequestMethod.GET)
     public UserInfo getUserInfo() {
         return userInfo;
+    }
+
+    @ApiOperation(value = "触发异步任务", notes = "触发异步任务")
+    @RequestMapping(value = "/task", method = RequestMethod.POST)
+    public String task() {
+        try {
+            task.doTaskOne();
+            task.doTaskTwo();
+            task.doTaskThree();
+        } catch (Exception e) {
+            throw new MyException(e);
+        }
+        return "success";
     }
 }
