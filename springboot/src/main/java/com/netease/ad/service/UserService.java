@@ -8,38 +8,15 @@ import java.util.List;
  * Created by bjzhuyucheng on 2017/4/21.
  */
 public interface UserService {
-    /**
-     * 新增用户
-     * @param user
-     * @return
-     */
-    void create(User user);
-
-    /**
-     * 根据用户名删除
-     * @param name
-     * @return
-     */
-    void deleteByName(String name);
-
-    /**
-     * 获取用户总量
-     * @return
-     */
-    Long getAllUsers();
-
-    /**
-     * 删除所有用户
-     */
-    void deleteAllUsers();
+    User create(User user);
 
     List<User> getUserList();
 
     User queryById(Long id);
 
-    void update(Long id, User user);
+    User update(Long id, User user);
 
     void delete(Long id);
 
-   Long userCount();
+    Long userCount();
 }

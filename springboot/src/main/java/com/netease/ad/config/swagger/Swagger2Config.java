@@ -1,4 +1,4 @@
-package com.netease.ad.config;
+package com.netease.ad.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

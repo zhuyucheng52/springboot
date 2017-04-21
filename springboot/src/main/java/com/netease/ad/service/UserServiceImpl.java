@@ -2,7 +2,9 @@ package com.netease.ad.service;
 
 import com.netease.ad.dao.UserRepository;
 import com.netease.ad.domain.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -12,28 +14,20 @@ import java.util.List;
  * Created by bjzhuyucheng on 2017/4/21.
  */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private RedisTemplate<Long, User> redisTemplate;
+
     @Autowired
     private UserRepository userRepository;
 
     @Override
-    public void create(User user) {
-        userRepository.save(user);
-    }
-
-    @Override
-    public void deleteByName(String name) {
-        userRepository.deleteByName(name);
-    }
-
-    @Override
-    public Long getAllUsers() {
-        return userRepository.findCount();
-    }
-
-    @Override
-    public void deleteAllUsers() {
-        userRepository.deleteAll();
+    public User create(User user) {
+        User u = userRepository.save(user);
+        redisTemplate.opsForValue().set(u.getId(), u);
+        return u;
     }
 
     @Override
@@ -43,16 +37,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User queryById(Long id) {
-        return userRepository.findOne(id);
+        User u = redisTemplate.opsForValue().get(id);
+        if (null == u) {
+            log.info("redis do not have user id={}, query user from database", id);
+            u = userRepository.findOne(id);
+        }
+        return u;
     }
 
     @Override
-    public void update(Long id, User user) {
+    public User update(Long id, User user) {
         User u = userRepository.findOne(id);
         Assert.notNull(u, "用户不存在");
         u.setName(user.getName());
         u.setAge(user.getAge());
-        userRepository.saveAndFlush(user);
+        u = userRepository.saveAndFlush(user);
+        redisTemplate.opsForValue().set(id, u);
+        return u;
     }
 
     @Override
