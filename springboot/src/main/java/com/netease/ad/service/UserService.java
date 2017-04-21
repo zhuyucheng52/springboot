@@ -10,11 +10,10 @@ import java.util.List;
 public interface UserService {
     /**
      * 新增用户
-     * @param name
-     * @param age
+     * @param user
      * @return
      */
-    void create(String name, Integer age);
+    void create(User user);
 
     /**
      * 根据用户名删除

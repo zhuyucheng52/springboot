@@ -40,7 +40,7 @@ public class UserController {
     @PostMapping(value = "/add")
     public String postUser(@ModelAttribute User user) {
         log.info("add user id={}, name={}, age={}", user.getId(), user.getName(), user.getAge());
-        userService.create(user.getName(), user.getAge());
+        userService.create(user);
         return "success";
     }
 
