@@ -112,4 +112,12 @@ public class UserController {
         }
         return "success";
     }
+
+    @ApiOperation(value = "根据用户名获取用户", notes = "根据用户名获取用户")
+    @ApiImplicitParam(name = "name", value = "用户名", required = true, paramType = "String")
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    public List<User> getUserByName(@PathVariable(value = "name") String name) {
+        log.debug("get user by name={}", name);
+        return userService.queryByName(name);
+    }
 }

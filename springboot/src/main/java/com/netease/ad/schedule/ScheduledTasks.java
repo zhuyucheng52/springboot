@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 @Slf4j
 public class ScheduledTasks {
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 50000)
     public void reportCurrentTime() {
         log.info("现在时间是：{}", DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss.SSS"));
     }

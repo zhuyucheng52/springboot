@@ -38,6 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> queryByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    @Override
     public User queryById(Long id) {
         User u = redisTemplate.opsForValue().get(id);
         if (null == u) {

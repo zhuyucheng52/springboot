@@ -1,15 +1,20 @@
 package com.netease.ad.dao;
 
 import com.netease.ad.domain.User;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 /**
  * Created by bjzhuyucheng on 2017/4/21.
  */
+@CacheConfig(cacheNames = "users")
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByName(String name);
+    @Cacheable
+    List<User> findByName(String name);
 
     User findByNameAndAge(String name, Integer age);
 

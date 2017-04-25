@@ -12,6 +12,8 @@ public interface UserService {
 
     List<User> getUserList();
 
+    List<User> queryByName(String name);
+
     User queryById(Long id);
 
     User update(Long id, User user);
